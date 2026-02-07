@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Zap, Binary, Cpu, HardDriveDownload, ChevronRight, MoveRight, Send, X, Github, Twitter, BookOpen, Linkedin, Book, Flame, Atom } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Zap, Binary, Cpu, HardDriveDownload, MoveRight, X, Github, Twitter, Linkedin, Book, Flame, Atom, BookOpen, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import NebulaBackground from './NebulaBackground';
 
 interface LandingPageProps {
@@ -61,80 +62,119 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
         localStorage.setItem('promo_dismissed', 'true');
     };
 
+    const tabVariants = {
+        hidden: { opacity: 0, y: 10, scale: 0.98, filter: "blur(4px)" },
+        visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: 0.4, ease: "easeOut" } },
+        exit: { opacity: 0, y: -10, scale: 0.98, filter: "blur(4px)", transition: { duration: 0.3, ease: "easeIn" } }
+    };
+
     const renderContent = () => {
         switch (activeTab) {
             case 'street':
                 return (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-4 animate-in fade-in zoom-in duration-500 w-full max-w-7xl mx-auto">
-                        <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(6,182,212,0.15)] animate-pulse">
-                            <Flame className="w-8 h-8 text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]" strokeWidth={1.5} />
+                    <motion.div
+                        key="street"
+                        variants={tabVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="flex flex-col items-center justify-center h-full text-center px-4 w-full max-w-7xl mx-auto"
+                    >
+                        <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(6,182,212,0.2)] animate-pulse">
+                            <Flame className="w-8 h-8 text-cyan-400 drop-shadow-[0_0_15px_rgba(6,182,212,0.6)]" strokeWidth={1.5} />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4">
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-2xl">
                             Street Mode
                         </h1>
-                        <p className="text-xl md:text-2xl text-cyan-400 font-medium tracking-wide mb-6">Action Oriented • Raw • Direct</p>
+                        <p className="text-xl md:text-2xl text-cyan-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(6,182,212,0.3)]">Action Oriented • Raw • Direct</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl w-full mb-10">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl w-full mb-12">
                             {[
                                 { title: 'No-BS Tone', desc: 'Cuts through the noise with raw, aggressive, and direct language.' },
                                 { title: 'Execution Focused', desc: 'Prioritizes actionable steps and "how-to" advice over theory.' },
                                 { title: 'High Energy', desc: 'Designed to motivate and push you into immediate action.' }
                             ].map((item, i) => (
-                                <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors">
-                                    <h3 className="text-cyan-400 font-bold mb-2 uppercase tracking-wide text-xs">{item.title}</h3>
-                                    <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
-                                </div>
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 * i }}
+                                    className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/[0.07] transition-colors hover:border-cyan-500/30 group"
+                                >
+                                    <h3 className="text-cyan-400 font-bold mb-2 uppercase tracking-wide text-xs group-hover:text-cyan-300 transition-colors">{item.title}</h3>
+                                    <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">{item.desc}</p>
+                                </motion.div>
                             ))}
                         </div>
 
                         <button
                             onClick={onGetStarted}
-                            className="px-8 py-3 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 hover:border-cyan-500/40 rounded-full text-sm font-medium tracking-wide text-cyan-400 hover:text-cyan-300 transition-all group flex items-center gap-2"
+                            className="px-8 py-3 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 hover:border-cyan-500/40 rounded-full text-sm font-medium tracking-wide text-cyan-400 hover:text-cyan-300 transition-all group flex items-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:shadow-[0_0_30px_rgba(6,182,212,0.25)]"
                         >
                             <span>Start Street Mode</span>
-                            <MoveRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                            <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
-                    </div>
+                    </motion.div>
                 );
             case 'stellar':
                 return (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-4 animate-in fade-in zoom-in duration-500 w-full max-w-7xl mx-auto">
-                        <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(168,85,247,0.15)]">
-                            <Atom className="w-8 h-8 text-purple-400 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)] animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
+                    <motion.div
+                        key="stellar"
+                        variants={tabVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="flex flex-col items-center justify-center h-full text-center px-4 w-full max-w-7xl mx-auto"
+                    >
+                        <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(168,85,247,0.2)]">
+                            <Atom className="w-8 h-8 text-purple-400 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4">
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-2xl">
                             Stellar Mode
                         </h1>
-                        <p className="text-xl md:text-2xl text-purple-400 font-medium tracking-wide mb-6">Deep Learning • Academic • Structured</p>
+                        <p className="text-xl md:text-2xl text-purple-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]">Deep Learning • Academic • Structured</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl w-full mb-10">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl w-full mb-12">
                             {[
                                 { title: 'Academic Structure', desc: 'Organizes content into modules, chapters, and quizzes like a textbook.' },
                                 { title: 'Concept Mastery', desc: 'Focuses on building deep mental models and theoretical understanding.' },
                                 { title: 'Comprehensive', desc: 'Covers topics thoroughly with examples, history, and context.' }
                             ].map((item, i) => (
-                                <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors">
-                                    <h3 className="text-purple-400 font-bold mb-2 uppercase tracking-wide text-xs">{item.title}</h3>
-                                    <p className="text-white/60 text-sm leading-relaxed">{item.desc}</p>
-                                </div>
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 * i }}
+                                    className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/[0.07] transition-colors hover:border-purple-500/30 group"
+                                >
+                                    <h3 className="text-purple-400 font-bold mb-2 uppercase tracking-wide text-xs group-hover:text-purple-300 transition-colors">{item.title}</h3>
+                                    <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">{item.desc}</p>
+                                </motion.div>
                             ))}
                         </div>
 
                         <button
                             onClick={onGetStarted}
-                            className="px-8 py-3 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 hover:border-purple-500/40 rounded-full text-sm font-medium tracking-wide text-purple-400 hover:text-purple-300 transition-all group flex items-center gap-2"
+                            className="px-8 py-3 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 hover:border-purple-500/40 rounded-full text-sm font-medium tracking-wide text-purple-400 hover:text-purple-300 transition-all group flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.1)] hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]"
                         >
                             <span>Start Stellar Mode</span>
-                            <MoveRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                            <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
-                    </div>
+                    </motion.div>
                 );
             case 'process':
                 return (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-4 animate-in fade-in zoom-in duration-500 w-full max-w-7xl mx-auto">
-                        <div className="text-center mb-8">
-                            <span className="text-[10px] tracking-[0.4em] uppercase text-cyan-400 mb-2 block opacity-80">The Process</span>
-                            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white">Your Learning Journey</h2>
+                    <motion.div
+                        key="process"
+                        variants={tabVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="flex flex-col items-center justify-center h-full text-center px-4 w-full max-w-7xl mx-auto"
+                    >
+                        <div className="text-center mb-10">
+                            <span className="text-[10px] tracking-[0.4em] uppercase text-cyan-400 mb-2 block opacity-80 font-semibold">The Process</span>
+                            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white drop-shadow-lg">Your Learning Journey</h2>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-6xl">
@@ -144,61 +184,74 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                 { step: '03', title: 'Engine Synthesis', desc: 'AI orchestration begins building your knowledge base', icon: Cpu, color: 'amber' },
                                 { step: '04', title: 'Ethereal Export', desc: 'Extract your high-fidelity instant PDF book', icon: HardDriveDownload, color: 'emerald' }
                             ].map((item, idx) => (
-                                <div key={idx} className="bg-[#050505]/60 border border-white/10 rounded-[22px] px-6 py-8 flex flex-col items-center justify-center text-center hover:border-white/20 transition-all duration-500 group relative overflow-hidden">
-                                    <div className={`absolute top-4 right-4 text-[10px] font-mono text-${item.color}-400/40`}>{item.step}</div>
-                                    <div className={`w-12 h-12 rounded-xl bg-${item.color}-500/[0.1] border border-${item.color}-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500`}>
-                                        <item.icon className={`w-6 h-6 text-${item.color}-400/80`} strokeWidth={1.5} />
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 * idx }}
+                                    className="bg-[#050505]/60 border border-white/10 rounded-[24px] px-6 py-10 flex flex-col items-center justify-center text-center hover:border-white/20 transition-all duration-500 group relative overflow-hidden hover:bg-white/[0.03] backdrop-blur-sm"
+                                >
+                                    <div className={`absolute top-4 right-4 text-[10px] font-mono text-${item.color}-400/40 font-bold`}>{item.step}</div>
+                                    <div className={`w-14 h-14 rounded-2xl bg-${item.color}-500/[0.08] border border-${item.color}-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.2)]`}>
+                                        <item.icon className={`w-7 h-7 text-${item.color}-400/90`} strokeWidth={1.5} />
                                     </div>
-                                    <h3 className="text-white font-medium text-sm mb-2 tracking-widest uppercase opacity-90">{item.title}</h3>
-                                    <p className="text-white/30 text-[11px] leading-relaxed">{item.desc}</p>
-                                </div>
+                                    <h3 className="text-white font-medium text-sm mb-3 tracking-widest uppercase opacity-90">{item.title}</h3>
+                                    <p className="text-white/40 text-[11px] leading-relaxed px-2">{item.desc}</p>
+                                </motion.div>
                             ))}
                         </div>
 
-                        <div className="mt-12 flex items-center gap-4 opacity-40">
-                            <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/30" />
+                        <div className="mt-14 flex items-center gap-4 opacity-40">
+                            <div className="h-px w-16 bg-gradient-to-r from-transparent to-white/30" />
                             <span className="text-[9px] uppercase tracking-[0.3em] font-light text-white/60">Secure Neural Channels • TLS 1.3</span>
-                            <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/30" />
+                            <div className="h-px w-16 bg-gradient-to-l from-transparent to-white/30" />
                         </div>
-                    </div>
+                    </motion.div>
                 );
             case 'demo':
                 return (
-                    <div className="flex flex-col items-center justify-center h-full px-4 animate-in fade-in zoom-in duration-500 w-full max-w-7xl mx-auto">
+                    <motion.div
+                        key="demo"
+                        variants={tabVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="flex flex-col items-center justify-center h-full px-4 w-full max-w-7xl mx-auto"
+                    >
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
                             {/* Left Side */}
                             <div className="text-left">
-                                <span className={`text-[10px] tracking-[0.4em] uppercase mb-4 block ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>Live Preview</span>
-                                <h2 className="text-4xl lg:text-5xl font-medium tracking-tight text-white mb-4 leading-tight">See Pustakam<br />in Action</h2>
-                                <p className="text-white/30 text-sm mb-8 max-w-md leading-relaxed">Experience the raw power of AI-generated books. Switch between modes to see how the engine adapts its output.</p>
+                                <span className={`text-[10px] tracking-[0.4em] uppercase mb-4 block font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>Live Preview</span>
+                                <h2 className="text-4xl lg:text-5xl font-medium tracking-tight text-white mb-6 leading-tight drop-shadow-xl">See Pustakam<br />in Action</h2>
+                                <p className="text-white/40 text-sm mb-8 max-w-md leading-relaxed">Experience the raw power of AI-generated books. Switch between modes to see how the engine adapts its output to your needs.</p>
 
-                                <div className="bg-[#050505]/80 border border-white/10 rounded-xl p-6 mb-8">
+                                <div className="bg-[#050505]/80 border border-white/10 rounded-2xl p-6 mb-8 backdrop-blur-md shadow-2xl">
                                     <div className="flex gap-2 mb-6">
                                         {DEMO_BOOKS.map((book, i) => (
                                             <button
                                                 key={i}
                                                 onClick={() => setActiveDemoIdx(i)}
                                                 className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center gap-2 border ${i === activeDemoIdx
-                                                    ? 'bg-white/10 border-white/20 text-white'
+                                                    ? 'bg-white/10 border-white/20 text-white shadow-inner'
                                                     : 'bg-transparent border-transparent text-white/30 hover:text-white/60'
                                                     }`}
                                             >
-                                                {i === 0 ? <Flame className="w-3 h-3" /> : <Atom className="w-3 h-3" />}
+                                                {i === 0 ? <Flame className={`w-3 h-3 ${i === activeDemoIdx ? 'text-cyan-400' : ''}`} /> : <Atom className={`w-3 h-3 ${i === activeDemoIdx ? 'text-purple-400' : ''}`} />}
                                                 {book.mode}
                                             </button>
                                         ))}
                                     </div>
 
-                                    <div className="space-y-2 mb-4">
+                                    <div className="space-y-3 mb-5">
                                         <div className="text-[10px] text-white/30 font-mono uppercase tracking-wider">Input Prompt</div>
-                                        <div className="text-white/90 text-sm font-medium border-l-2 border-white/20 pl-3 py-1">
+                                        <div className="text-white/90 text-sm font-medium border-l-2 border-white/20 pl-3 py-1 italic text-white/70">
                                             "{activeBook.input}"
                                         </div>
                                     </div>
 
                                     <div className="space-y-2">
                                         <div className="text-[10px] text-white/30 font-mono uppercase tracking-wider">Generated Title</div>
-                                        <div className={`text-lg font-bold ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>
+                                        <div className={`text-lg font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>
                                             {activeBook.title}
                                         </div>
                                     </div>
@@ -206,24 +259,32 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                             </div>
 
                             {/* Right Side - Book Card */}
-                            <div className="relative group perspective-1000">
-                                <div className="relative bg-[#050505]/60 border border-white/10 rounded-2xl p-6 transition-all duration-500 hover:border-white/20 transform hover:rotate-y-2">
-                                    <div className="flex items-start gap-5 mb-6">
-                                        <div className="relative flex-shrink-0 w-24 h-32 bg-[#0a0a0f] rounded-lg border border-white/10 overflow-hidden shadow-2xl">
-                                            <div className={`absolute inset-0 bg-gradient-to-br ${activeBook.gradient}`} />
+                            <motion.div
+                                key={activeDemoIdx}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5 }}
+                                className="relative group perspective-1000"
+                            >
+                                <div className="relative bg-[#050505]/60 border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:border-white/20 transform hover:scale-[1.02] shadow-2xl backdrop-blur-sm">
+                                    <div className="flex items-start gap-6 mb-8">
+                                        <div className="relative flex-shrink-0 w-28 h-36 bg-[#0a0a0f] rounded-lg border border-white/10 overflow-hidden shadow-2xl skew-x-1 group-hover:skew-x-0 transition-transform duration-500 origin-bottom-left">
+                                            <div className={`absolute inset-0 bg-gradient-to-br ${activeBook.gradient} opacity-90`} />
                                             <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center">
-                                                <div className="text-[8px] text-white/80 font-bold mb-1">{activeBook.shortTitle}</div>
-                                                <div className="w-6 h-6 rounded bg-white/10 flex items-center justify-center">
+                                                <div className="text-[8px] text-white/90 font-bold mb-1 tracking-tight leading-tight px-1">{activeBook.shortTitle}</div>
+                                                <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center backdrop-blur-md">
                                                     {activeDemoIdx === 0 ? <Flame className="w-3 h-3 text-white" /> : <Atom className="w-3 h-3 text-white" />}
                                                 </div>
                                             </div>
+                                            {/* Spine effect */}
+                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/20" />
                                         </div>
                                         <div>
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <span className="px-2 py-0.5 rounded text-[9px] bg-white/10 text-white/60 uppercase tracking-wider border border-white/5">PDF Ready</span>
-                                                <span className="text-white/30 text-[10px]">{activeBook.words} Words</span>
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <span className="px-2.5 py-1 rounded-md text-[9px] bg-white/10 text-white/70 uppercase tracking-wider border border-white/5 font-semibold">PDF Ready</span>
+                                                <span className="text-white/40 text-[10px] font-mono">{activeBook.words} Words</span>
                                             </div>
-                                            <p className="text-white/50 text-xs leading-relaxed">{activeBook.desc}</p>
+                                            <p className="text-white/50 text-xs leading-relaxed max-w-xs">{activeBook.desc}</p>
                                         </div>
                                     </div>
 
@@ -231,24 +292,31 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                         href={activeBook.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`flex items-center justify-center gap-2 w-full py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${activeDemoIdx === 0
-                                            ? 'bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400'
-                                            : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-400'}`}
+                                        className={`flex items-center justify-center gap-3 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-lg ${activeDemoIdx === 0
+                                            ? 'bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:shadow-cyan-500/10'
+                                            : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 hover:shadow-purple-500/10'}`}
                                     >
-                                        <HardDriveDownload className="w-3 h-3" />
+                                        <HardDriveDownload className="w-3.5 h-3.5" />
                                         <span>Download Sample PDF</span>
                                     </a>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
                 );
             case 'features':
                 return (
-                    <div className="flex flex-col items-center justify-center h-full px-4 animate-in fade-in zoom-in duration-500 w-full max-w-7xl mx-auto">
-                        <div className="text-center mb-10">
-                            <span className="text-[10px] tracking-[0.4em] uppercase text-emerald-400 mb-2 block opacity-80">Capabilities</span>
-                            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white">Why Pustakam?</h2>
+                    <motion.div
+                        key="features"
+                        variants={tabVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="flex flex-col items-center justify-center h-full px-4 w-full max-w-7xl mx-auto"
+                    >
+                        <div className="text-center mb-12">
+                            <span className="text-[10px] tracking-[0.4em] uppercase text-emerald-400 mb-2 block opacity-80 font-semibold">Capabilities</span>
+                            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white drop-shadow-lg">Why Pustakam?</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
@@ -257,48 +325,62 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                 { title: 'Structured Content', desc: 'Every book includes chapters, modules, quizzes, and progress tracking.', icon: Book, color: 'purple' },
                                 { title: 'Learn Anything', desc: 'From programming to philosophy — if you can describe it, Pustakam can teach it.', icon: BookOpen, color: 'emerald' }
                             ].map((item, i) => (
-                                <div key={i} className="group relative p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 hover:bg-white/[0.04] text-center md:text-left">
-                                    <div className={`w-12 h-12 rounded-xl bg-${item.color}-500/10 flex items-center justify-center mb-6 border border-${item.color}-500/20 mx-auto md:mx-0 group-hover:scale-110 transition-transform`}>
-                                        <item.icon className={`w-6 h-6 text-${item.color}-400`} strokeWidth={1.5} />
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.1 * i }}
+                                    className="group relative p-8 rounded-[28px] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 hover:bg-white/[0.04] text-center md:text-left hover:shadow-2xl hover:shadow-black/50"
+                                >
+                                    <div className={`w-14 h-14 rounded-2xl bg-${item.color}-500/10 flex items-center justify-center mb-6 border border-${item.color}-500/15 mx-auto md:mx-0 group-hover:scale-110 transition-transform duration-500 group-hover:shadow-[0_0_20px_rgba(0,0,0,0.2)]`}>
+                                        <item.icon className={`w-7 h-7 text-${item.color}-400/90`} strokeWidth={1.5} />
                                     </div>
-                                    <h3 className="text-lg font-medium mb-3 text-white/90">{item.title}</h3>
-                                    <p className="text-white/40 font-light leading-relaxed text-sm">{item.desc}</p>
-                                </div>
+                                    <h3 className="text-lg font-medium mb-3 text-white/90 group-hover:text-white transition-colors">{item.title}</h3>
+                                    <p className="text-white/40 font-light leading-relaxed text-sm group-hover:text-white/60 transition-colors">{item.desc}</p>
+                                </motion.div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
                 );
             case 'home':
             default:
                 return (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-4 animate-in fade-in zoom-in duration-500">
-                        <div className="relative z-10 max-w-4xl mb-8">
-                            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1] text-white mb-2">
+                    <motion.div
+                        key="home"
+                        variants={tabVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="flex flex-col items-center justify-center h-full text-center px-4"
+                    >
+                        <div className="relative z-10 max-w-4xl mb-10">
+                            <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight leading-[1] text-white mb-4 drop-shadow-2xl">
                                 Your Infinite
                             </h1>
-                            <span className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white/40 block">Knowledge Engine</span>
+                            <span className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white/40 block drop-shadow-lg">Knowledge Engine</span>
                         </div>
 
-                        <p className="text-white/40 text-sm md:text-base max-w-xl leading-relaxed mb-10">
+                        <p className="text-white/40 text-sm md:text-lg max-w-2xl leading-relaxed mb-12 font-light">
                             Generate personalized learning guides with AI. Choose your mode, define your topic, and master any subject instantly.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-center gap-5">
                             <button
                                 onClick={onGetStarted}
-                                className="relative z-10 px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full text-sm font-medium tracking-wide text-white/90 hover:text-white transition-all group flex items-center gap-2"
+                                className="relative z-10 px-10 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full text-sm font-medium tracking-wide text-white/90 hover:text-white transition-all group flex items-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]"
                             >
                                 <span>Start Learning Now</span>
-                                <MoveRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                                <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </button>
                             <button
                                 onClick={() => setActiveTab('process')}
-                                className="px-8 py-3.5 text-sm font-medium tracking-wide text-white/40 hover:text-white transition-colors"
+                                className="px-10 py-4 text-sm font-medium tracking-wide text-white/40 hover:text-white transition-colors flex items-center gap-2 group"
                             >
                                 How it Works
+                                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
                 );
         }
     };
@@ -309,8 +391,12 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
 
             {/* Promo Banner - Fixed absolute */}
             {showPromo && (
-                <div className="absolute top-24 right-6 z-50 animate-in slide-in-from-right fade-in duration-500">
-                    <div className="flex items-center gap-3 pl-4 pr-10 py-3 bg-cyan-950/40 backdrop-blur-md border border-cyan-500/20 rounded-xl shadow-2xl relative group">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute top-24 right-6 z-50"
+                >
+                    <div className="flex items-center gap-3 pl-4 pr-10 py-3 bg-cyan-950/40 backdrop-blur-md border border-cyan-500/20 rounded-xl shadow-2xl relative group hover:border-cyan-500/40 transition-colors">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -326,20 +412,20 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                             <X size={12} />
                         </button>
                     </div>
-                </div>
+                </motion.div>
             )}
 
 
             {/* Header */}
             <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 pointer-events-none md:pointer-events-auto">
                 {/* Logo Area */}
-                <div className="flex items-center gap-2 cursor-pointer group pointer-events-auto" onClick={() => setActiveTab('home')}>
-                    <img src="/white-logo.png" alt="Pustakam AI Logo" className="w-6 h-6 opacity-90" />
-                    <span className="text-white/90 font-semibold text-sm tracking-tight">Pustakam<span className="text-white/40">AI</span></span>
+                <div className="flex items-center gap-2 cursor-pointer group pointer-events-auto select-none" onClick={() => setActiveTab('home')}>
+                    <img src="/white-logo.png" alt="Pustakam AI Logo" className="w-6 h-6 opacity-90 transition-opacity group-hover:opacity-100" />
+                    <span className="text-white/90 font-semibold text-sm tracking-tight group-hover:text-white transition-colors">Pustakam<span className="text-white/40 group-hover:text-white/60 transition-colors">AI</span></span>
                 </div>
 
-                {/* Navigation Tabs - Centered */}
-                <nav className="pointer-events-auto flex items-center p-1 bg-white/5 rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[90vw] scrollbar-hide">
+                {/* Navigation Tabs - Centered with AnimateSharedLayout idea */}
+                <nav className="pointer-events-auto flex items-center p-1.5 bg-white/[0.03] rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[90vw] scrollbar-hide shadow-lg relative">
                     {[
                         { id: 'home', label: 'Home' },
                         { id: 'process', label: 'How it Works' },
@@ -351,12 +437,17 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id as any)}
-                            className={`px-4 md:px-5 py-1.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-widest uppercase transition-all duration-300 whitespace-nowrap ${activeTab === tab.id
-                                    ? 'bg-white/10 text-white shadow-lg'
-                                    : 'text-white/40 hover:text-white/70'
+                            className={`relative px-4 md:px-5 py-2 rounded-full text-[10px] md:text-[11px] font-medium tracking-widest uppercase transition-colors duration-200 whitespace-nowrap z-10 ${activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/70'
                                 }`}
                         >
-                            {tab.label}
+                            {activeTab === tab.id && (
+                                <motion.div
+                                    layoutId="activeTab"
+                                    className="absolute inset-0 bg-white/10 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/5"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                            <span className="relative z-10">{tab.label}</span>
                         </button>
                     ))}
                 </nav>
@@ -366,7 +457,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                     <button onClick={onLogin} className="text-[11px] font-medium tracking-wide opacity-50 hover:opacity-100 transition-opacity uppercase">Login</button>
                     <button
                         onClick={onGetStarted}
-                        className="bg-white text-black px-5 py-2 rounded-full text-[11px] font-bold tracking-widest uppercase hover:bg-white/90 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                        className="bg-white text-black px-6 py-2.5 rounded-full text-[11px] font-bold tracking-widest uppercase hover:bg-white/90 transition-all shadow-[0_0_20px_rgba(255,255,255,0.15)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95"
                     >
                         Try Pustakam
                     </button>
@@ -375,11 +466,13 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
 
             {/* Main Content Area */}
             <main className="flex-1 flex flex-col relative z-10 pt-24 pb-20 overflow-hidden">
-                {renderContent()}
+                <AnimatePresence mode="wait">
+                    {renderContent()}
+                </AnimatePresence>
             </main>
 
             {/* Fixed Footer */}
-            <footer className="absolute bottom-0 left-0 right-0 z-50 px-6 py-4 border-t border-white/5 bg-black/80 backdrop-blur-md">
+            <footer className="absolute bottom-0 left-0 right-0 z-50 px-6 py-5 border-t border-white/5 bg-black/80 backdrop-blur-xl">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
                     <div className="flex items-center gap-6 text-[10px] font-medium tracking-wider text-white/30 uppercase">
                         <span>© {new Date().getFullYear()} PustakamAI</span>
@@ -389,22 +482,22 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
 
                     <div className="flex items-center gap-6">
                         {/* Socials */}
-                        <div className="flex items-center gap-4">
-                            <a href="https://x.com/404NotTelling" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors">
-                                <Twitter size={12} />
+                        <div className="flex items-center gap-5">
+                            <a href="https://x.com/404NotTelling" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
+                                <Twitter size={14} />
                             </a>
-                            <a href="https://github.com/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors">
-                                <Github size={12} />
+                            <a href="https://github.com/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
+                                <Github size={14} />
                             </a>
-                            <a href="https://linkedin.com/in/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors">
-                                <Linkedin size={12} />
+                            <a href="https://linkedin.com/in/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
+                                <Linkedin size={14} />
                             </a>
                         </div>
 
                         <div className="h-3 w-px bg-white/10 hidden md:block" />
 
                         {/* Links */}
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-5">
                             <button onClick={onShowAbout} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">About</button>
                             <button onClick={onShowPrivacy} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">Privacy</button>
                             <button onClick={onShowTerms} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">Terms</button>
@@ -412,7 +505,6 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                     </div>
                 </div>
             </footer>
-
         </div>
     );
 };
