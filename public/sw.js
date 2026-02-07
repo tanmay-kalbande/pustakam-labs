@@ -1,6 +1,6 @@
 // IMPORTANT: Increment this version number with each deployment
-const CACHE_VERSION = 'kitaab-v2.7.04'; // Updated 2026-02-07 - Pre-release update
-const CACHE_NAME = 'pustakam-cache-v39'; // Pre-release update
+const CACHE_VERSION = 'kitaab-v2.7.04'; // Updated 2026-02-07 - Fixed LongCat/OpenRouter/Cohere API key validation
+const CACHE_NAME = 'pustakam-cache-v39'; // Fixed hasApiKey check to include all providers
 const SW_VERSION = 'kitaab-v2.7.04';
 const urlsToCache = [
     '/',

@@ -293,7 +293,10 @@ function App() {
     settings.mistralApiKey ||
     settings.xaiApiKey ||
     settings.groqApiKey ||
-    settings.cerebrasApiKey
+    settings.cerebrasApiKey ||
+    settings.openRouterApiKey ||
+    settings.cohereApiKey ||
+    settings.longcatApiKey
   );
 
   const getAlternativeModels = () => {
