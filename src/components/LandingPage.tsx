@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Binary, Cpu, HardDriveDownload, MoveRight, X, Github, Twitter, Linkedin, Book, Flame, Atom, BookOpen, ChevronRight } from 'lucide-react';
+import { Zap, Binary, Cpu, HardDriveDownload, MoveRight, X, Github, Twitter, Linkedin, Book, Flame, Atom, BookOpen, ChevronRight, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import NebulaBackground from './NebulaBackground';
 
@@ -48,6 +48,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
     const [activeTab, setActiveTab] = useState<'home' | 'street' | 'stellar' | 'demo' | 'process' | 'features'>('home');
     const [showPromo, setShowPromo] = useState(true);
     const [activeDemoIdx, setActiveDemoIdx] = useState(0);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const activeBook = DEMO_BOOKS[activeDemoIdx];
 
     useEffect(() => {
@@ -68,6 +69,11 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
         exit: { opacity: 0, y: -10, scale: 0.98, filter: "blur(4px)", transition: { duration: 0.3, ease: "easeIn" } }
     };
 
+    const handleTabChange = (tab: any) => {
+        setActiveTab(tab);
+        setMobileMenuOpen(false);
+    };
+
     const renderContent = () => {
         switch (activeTab) {
             case 'street':
@@ -78,7 +84,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="flex flex-col items-center justify-center h-full text-center px-4 w-full max-w-7xl mx-auto"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-7xl mx-auto py-10"
                     >
                         <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(6,182,212,0.2)] animate-pulse">
                             <Flame className="w-8 h-8 text-cyan-400 drop-shadow-[0_0_15px_rgba(6,182,212,0.6)]" strokeWidth={1.5} />
@@ -86,9 +92,9 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-2xl">
                             Street Mode
                         </h1>
-                        <p className="text-xl md:text-2xl text-cyan-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(6,182,212,0.3)]">Action Oriented • Raw • Direct</p>
+                        <p className="text-lg md:text-2xl text-cyan-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(6,182,212,0.3)]">Action Oriented • Raw • Direct</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl w-full mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-left max-w-5xl w-full mb-12">
                             {[
                                 { title: 'No-BS Tone', desc: 'Cuts through the noise with raw, aggressive, and direct language.' },
                                 { title: 'Execution Focused', desc: 'Prioritizes actionable steps and "how-to" advice over theory.' },
@@ -124,7 +130,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="flex flex-col items-center justify-center h-full text-center px-4 w-full max-w-7xl mx-auto"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-7xl mx-auto py-10"
                     >
                         <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(168,85,247,0.2)]">
                             <Atom className="w-8 h-8 text-purple-400 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
@@ -132,9 +138,9 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-2xl">
                             Stellar Mode
                         </h1>
-                        <p className="text-xl md:text-2xl text-purple-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]">Deep Learning • Academic • Structured</p>
+                        <p className="text-lg md:text-2xl text-purple-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]">Deep Learning • Academic • Structured</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl w-full mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-left max-w-5xl w-full mb-12">
                             {[
                                 { title: 'Academic Structure', desc: 'Organizes content into modules, chapters, and quizzes like a textbook.' },
                                 { title: 'Concept Mastery', desc: 'Focuses on building deep mental models and theoretical understanding.' },
@@ -170,7 +176,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="flex flex-col items-center justify-center h-full text-center px-4 w-full max-w-7xl mx-auto"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-7xl mx-auto py-10"
                     >
                         <div className="text-center mb-10">
                             <span className="text-[10px] tracking-[0.4em] uppercase text-cyan-400 mb-2 block opacity-80 font-semibold">The Process</span>
@@ -189,11 +195,11 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 * idx }}
-                                    className="bg-[#050505]/60 border border-white/10 rounded-[24px] px-6 py-10 flex flex-col items-center justify-center text-center hover:border-white/20 transition-all duration-500 group relative overflow-hidden hover:bg-white/[0.03] backdrop-blur-sm"
+                                    className="bg-[#050505]/60 border border-white/10 rounded-[24px] px-6 py-8 md:py-10 flex flex-col items-center justify-center text-center hover:border-white/20 transition-all duration-500 group relative overflow-hidden hover:bg-white/[0.03] backdrop-blur-sm"
                                 >
                                     <div className={`absolute top-4 right-4 text-[10px] font-mono text-${item.color}-400/40 font-bold`}>{item.step}</div>
-                                    <div className={`w-14 h-14 rounded-2xl bg-${item.color}-500/[0.08] border border-${item.color}-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.2)]`}>
-                                        <item.icon className={`w-7 h-7 text-${item.color}-400/90`} strokeWidth={1.5} />
+                                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-${item.color}-500/[0.08] border border-${item.color}-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.2)]`}>
+                                        <item.icon className={`w-6 h-6 md:w-7 md:h-7 text-${item.color}-400/90`} strokeWidth={1.5} />
                                     </div>
                                     <h3 className="text-white font-medium text-sm mb-3 tracking-widest uppercase opacity-90">{item.title}</h3>
                                     <p className="text-white/40 text-[11px] leading-relaxed px-2">{item.desc}</p>
@@ -201,10 +207,10 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                             ))}
                         </div>
 
-                        <div className="mt-14 flex items-center gap-4 opacity-40">
-                            <div className="h-px w-16 bg-gradient-to-r from-transparent to-white/30" />
-                            <span className="text-[9px] uppercase tracking-[0.3em] font-light text-white/60">Secure Neural Channels • TLS 1.3</span>
-                            <div className="h-px w-16 bg-gradient-to-l from-transparent to-white/30" />
+                        <div className="mt-14 flex items-center justify-center gap-4 opacity-40">
+                            <div className="h-px w-12 md:w-16 bg-gradient-to-r from-transparent to-white/30" />
+                            <span className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] font-light text-white/60 text-center">Secure Neural Channels • TLS 1.3</span>
+                            <div className="h-px w-12 md:w-16 bg-gradient-to-l from-transparent to-white/30" />
                         </div>
                     </motion.div>
                 );
@@ -216,13 +222,13 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="flex flex-col items-center justify-center h-full px-4 w-full max-w-7xl mx-auto"
+                        className="flex flex-col items-center justify-center min-h-full px-4 w-full max-w-7xl mx-auto py-10"
                     >
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center w-full">
                             {/* Left Side */}
                             <div className="text-left">
                                 <span className={`text-[10px] tracking-[0.4em] uppercase mb-4 block font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>Live Preview</span>
-                                <h2 className="text-4xl lg:text-5xl font-medium tracking-tight text-white mb-6 leading-tight drop-shadow-xl">See Pustakam<br />in Action</h2>
+                                <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6 leading-tight drop-shadow-xl">See Pustakam<br />in Action</h2>
                                 <p className="text-white/40 text-sm mb-8 max-w-md leading-relaxed">Experience the raw power of AI-generated books. Switch between modes to see how the engine adapts its output to your needs.</p>
 
                                 <div className="bg-[#050505]/80 border border-white/10 rounded-2xl p-6 mb-8 backdrop-blur-md shadow-2xl">
@@ -266,9 +272,9 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                 transition={{ duration: 0.5 }}
                                 className="relative group perspective-1000"
                             >
-                                <div className="relative bg-[#050505]/60 border border-white/10 rounded-3xl p-8 transition-all duration-500 hover:border-white/20 transform hover:scale-[1.02] shadow-2xl backdrop-blur-sm">
-                                    <div className="flex items-start gap-6 mb-8">
-                                        <div className="relative flex-shrink-0 w-28 h-36 bg-[#0a0a0f] rounded-lg border border-white/10 overflow-hidden shadow-2xl skew-x-1 group-hover:skew-x-0 transition-transform duration-500 origin-bottom-left">
+                                <div className="relative bg-[#050505]/60 border border-white/10 rounded-3xl p-6 md:p-8 transition-all duration-500 hover:border-white/20 transform hover:scale-[1.02] shadow-2xl backdrop-blur-sm">
+                                    <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 text-center md:text-left">
+                                        <div className="relative flex-shrink-0 w-28 h-36 bg-[#0a0a0f] rounded-lg border border-white/10 overflow-hidden shadow-2xl md:skew-x-1 group-hover:skew-x-0 transition-transform duration-500 origin-bottom-left">
                                             <div className={`absolute inset-0 bg-gradient-to-br ${activeBook.gradient} opacity-90`} />
                                             <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center">
                                                 <div className="text-[8px] text-white/90 font-bold mb-1 tracking-tight leading-tight px-1">{activeBook.shortTitle}</div>
@@ -280,11 +286,11 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                             <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/20" />
                                         </div>
                                         <div>
-                                            <div className="flex items-center gap-3 mb-3">
+                                            <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
                                                 <span className="px-2.5 py-1 rounded-md text-[9px] bg-white/10 text-white/70 uppercase tracking-wider border border-white/5 font-semibold">PDF Ready</span>
                                                 <span className="text-white/40 text-[10px] font-mono">{activeBook.words} Words</span>
                                             </div>
-                                            <p className="text-white/50 text-xs leading-relaxed max-w-xs">{activeBook.desc}</p>
+                                            <p className="text-white/50 text-xs leading-relaxed max-w-xs mx-auto md:mx-0">{activeBook.desc}</p>
                                         </div>
                                     </div>
 
@@ -312,7 +318,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="flex flex-col items-center justify-center h-full px-4 w-full max-w-7xl mx-auto"
+                        className="flex flex-col items-center justify-center min-h-full px-4 w-full max-w-7xl mx-auto py-10"
                     >
                         <div className="text-center mb-12">
                             <span className="text-[10px] tracking-[0.4em] uppercase text-emerald-400 mb-2 block opacity-80 font-semibold">Capabilities</span>
@@ -351,30 +357,30 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="flex flex-col items-center justify-center h-full text-center px-4"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 py-10"
                     >
                         <div className="relative z-10 max-w-4xl mb-10">
-                            <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold tracking-tight leading-[1] text-white mb-4 drop-shadow-2xl">
+                            <h1 className="text-4xl md:text-7xl lg:text-9xl font-bold tracking-tight leading-[1] text-white mb-4 drop-shadow-2xl">
                                 Your Infinite
                             </h1>
-                            <span className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white/40 block drop-shadow-lg">Knowledge Engine</span>
+                            <span className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white/40 block drop-shadow-lg">Knowledge Engine</span>
                         </div>
 
                         <p className="text-white/40 text-sm md:text-lg max-w-2xl leading-relaxed mb-12 font-light">
                             Generate personalized learning guides with AI. Choose your mode, define your topic, and master any subject instantly.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center gap-5">
+                        <div className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
                             <button
                                 onClick={onGetStarted}
-                                className="relative z-10 px-10 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full text-sm font-medium tracking-wide text-white/90 hover:text-white transition-all group flex items-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]"
+                                className="w-full sm:w-auto relative z-10 px-10 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full text-sm font-medium tracking-wide text-white/90 hover:text-white transition-all group flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]"
                             >
                                 <span>Start Learning Now</span>
                                 <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </button>
                             <button
-                                onClick={() => setActiveTab('process')}
-                                className="px-10 py-4 text-sm font-medium tracking-wide text-white/40 hover:text-white transition-colors flex items-center gap-2 group"
+                                onClick={() => handleTabChange('process')}
+                                className="w-full sm:w-auto px-10 py-4 text-sm font-medium tracking-wide text-white/40 hover:text-white transition-colors flex items-center justify-center gap-2 group"
                             >
                                 How it Works
                                 <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
@@ -394,7 +400,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute top-24 right-6 z-50"
+                    className="absolute top-24 right-6 z-50 hidden md:block" // Hide on mobile to avoid clutter
                 >
                     <div className="flex items-center gap-3 pl-4 pr-10 py-3 bg-cyan-950/40 backdrop-blur-md border border-cyan-500/20 rounded-xl shadow-2xl relative group hover:border-cyan-500/40 transition-colors">
                         <span className="relative flex h-2 w-2">
@@ -417,15 +423,23 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
 
 
             {/* Header */}
-            <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 pointer-events-none md:pointer-events-auto">
+            <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4 md:py-6 flex items-center justify-between gap-4 pointer-events-none">
                 {/* Logo Area */}
-                <div className="flex items-center gap-2 cursor-pointer group pointer-events-auto select-none" onClick={() => setActiveTab('home')}>
+                <div className="flex items-center gap-2 cursor-pointer group pointer-events-auto select-none" onClick={() => handleTabChange('home')}>
                     <img src="/white-logo.png" alt="Pustakam AI Logo" className="w-6 h-6 opacity-90 transition-opacity group-hover:opacity-100" />
                     <span className="text-white/90 font-semibold text-sm tracking-tight group-hover:text-white transition-colors">Pustakam<span className="text-white/40 group-hover:text-white/60 transition-colors">AI</span></span>
                 </div>
 
-                {/* Navigation Tabs - Centered with AnimateSharedLayout idea */}
-                <nav className="pointer-events-auto flex items-center p-1.5 bg-white/[0.03] rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[90vw] scrollbar-hide shadow-lg relative">
+                {/* Mobile Menu Trigger */}
+                <button
+                    onClick={() => setMobileMenuOpen(true)}
+                    className="pointer-events-auto md:hidden p-2 text-white/60 hover:text-white"
+                >
+                    <Menu size={24} />
+                </button>
+
+                {/* Desktop Navigation Tabs */}
+                <nav className="pointer-events-auto hidden md:flex items-center p-1.5 bg-white/[0.03] rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[90vw] scrollbar-hide shadow-lg relative">
                     {[
                         { id: 'home', label: 'Home' },
                         { id: 'process', label: 'How it Works' },
@@ -436,7 +450,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                     ].map((tab) => (
                         <button
                             key={tab.id}
-                            onClick={() => setActiveTab(tab.id as any)}
+                            onClick={() => handleTabChange(tab.id as any)}
                             className={`relative px-4 md:px-5 py-2 rounded-full text-[10px] md:text-[11px] font-medium tracking-widest uppercase transition-colors duration-200 whitespace-nowrap z-10 ${activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/70'
                                 }`}
                         >
@@ -464,47 +478,106 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                 </div>
             </header>
 
-            {/* Main Content Area */}
-            <main className="flex-1 flex flex-col relative z-10 pt-24 pb-20 overflow-hidden">
-                <AnimatePresence mode="wait">
-                    {renderContent()}
-                </AnimatePresence>
-            </main>
-
-            {/* Fixed Footer */}
-            <footer className="absolute bottom-0 left-0 right-0 z-50 px-6 py-5 border-t border-white/5 bg-black/80 backdrop-blur-xl">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-                    <div className="flex items-center gap-6 text-[10px] font-medium tracking-wider text-white/30 uppercase">
-                        <span>© {new Date().getFullYear()} PustakamAI</span>
-                        <span className="hidden md:inline">•</span>
-                        <span>Made by Tanmay</span>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        {/* Socials */}
-                        <div className="flex items-center gap-5">
-                            <a href="https://x.com/404NotTelling" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
-                                <Twitter size={14} />
-                            </a>
-                            <a href="https://github.com/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
-                                <Github size={14} />
-                            </a>
-                            <a href="https://linkedin.com/in/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
-                                <Linkedin size={14} />
-                            </a>
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                        className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col p-8 pointer-events-auto"
+                    >
+                        <div className="flex items-center justify-between mb-10">
+                            <div className="flex items-center gap-2">
+                                <img src="/white-logo.png" alt="Logo" className="w-6 h-6" />
+                                <span className="font-semibold text-white">Menu</span>
+                            </div>
+                            <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-white/50 hover:text-white">
+                                <X size={24} />
+                            </button>
                         </div>
 
-                        <div className="h-3 w-px bg-white/10 hidden md:block" />
-
-                        {/* Links */}
-                        <div className="flex items-center gap-5">
-                            <button onClick={onShowAbout} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">About</button>
-                            <button onClick={onShowPrivacy} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">Privacy</button>
-                            <button onClick={onShowTerms} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">Terms</button>
+                        <div className="flex flex-col gap-6">
+                            {[
+                                { id: 'home', label: 'Home' },
+                                { id: 'process', label: 'How it Works' },
+                                { id: 'street', label: 'Street Mode' },
+                                { id: 'stellar', label: 'Stellar Mode' },
+                                { id: 'demo', label: 'Demo' },
+                                { id: 'features', label: 'Use Cases' }
+                            ].map((tab) => (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => handleTabChange(tab.id as any)}
+                                    className={`text-left text-2xl font-light tracking-wide ${activeTab === tab.id ? 'text-white font-medium' : 'text-white/40'}`}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
                         </div>
-                    </div>
+
+                        <div className="mt-auto flex flex-col gap-4">
+                            <button
+                                onClick={onGetStarted}
+                                className="w-full py-4 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm"
+                            >
+                                Try Pustakam
+                            </button>
+                            <button
+                                onClick={onLogin}
+                                className="w-full py-4 bg-white/5 text-white rounded-full font-medium uppercase tracking-widest text-sm"
+                            >
+                                Login
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Main Content Area - Scrollable on Mobile, Fixed on Desktop */}
+            <main className="flex-1 flex flex-col relative z-10 md:pt-24 md:pb-20 overflow-y-auto md:overflow-hidden scrollbar-hide">
+                <div className="min-h-screen md:h-full flex flex-col">
+                    <AnimatePresence mode="wait">
+                        {renderContent()}
+                    </AnimatePresence>
+
+                    {/* Fixed Footer for Desktop / Relative for Mobile */}
+                    <footer className="w-full px-6 py-8 md:py-5 border-t border-white/5 bg-black md:bg-black/80 md:backdrop-blur-xl md:absolute md:bottom-0 md:left-0 md:right-0 z-50">
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-3">
+                            <div className="flex items-center gap-6 text-[10px] font-medium tracking-wider text-white/30 uppercase">
+                                <span>© {new Date().getFullYear()} PustakamAI</span>
+                                <span className="hidden md:inline">•</span>
+                                <span>Made by Tanmay</span>
+                            </div>
+
+                            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-6 w-full md:w-auto">
+                                {/* Socials */}
+                                <div className="flex items-center gap-8 md:gap-5">
+                                    <a href="https://x.com/404NotTelling" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
+                                        <Twitter size={16} md:size={14} />
+                                    </a>
+                                    <a href="https://github.com/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
+                                        <Github size={16} md:size={14} />
+                                    </a>
+                                    <a href="https://linkedin.com/in/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
+                                        <Linkedin size={16} md:size={14} />
+                                    </a>
+                                </div>
+
+                                <div className="h-px w-full md:h-3 md:w-px bg-white/10 hidden md:block" />
+
+                                {/* Links */}
+                                <div className="flex items-center gap-6 md:gap-5">
+                                    <button onClick={onShowAbout} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">About</button>
+                                    <button onClick={onShowPrivacy} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">Privacy</button>
+                                    <button onClick={onShowTerms} className="text-[10px] font-medium tracking-wider text-white/30 hover:text-white uppercase transition-colors">Terms</button>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
-            </footer>
+            </main>
         </div>
     );
 };
