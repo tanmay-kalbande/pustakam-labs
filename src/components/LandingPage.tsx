@@ -66,18 +66,18 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
     const tabVariants = {
         hidden: {
             opacity: 0,
-            rotateY: 45,
-            x: 50,
-            perspective: 2000
+            x: 40,
+            filter: "blur(10px)",
+            scale: 0.98
         },
         visible: {
             opacity: 1,
-            rotateY: 0,
             x: 0,
-            perspective: 2000,
+            filter: "blur(0px)",
+            scale: 1,
             transition: {
                 type: "spring",
-                stiffness: 90,
+                stiffness: 100,
                 damping: 20,
                 mass: 1,
                 duration: 0.8
@@ -85,12 +85,12 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
         },
         exit: {
             opacity: 0,
-            rotateY: -45,
-            x: -50,
-            perspective: 2000,
+            x: -40,
+            filter: "blur(10px)",
+            scale: 0.98,
             transition: {
-                duration: 0.5,
-                ease: "circIn"
+                duration: 0.4,
+                ease: "easeInOut"
             }
         }
     };
@@ -115,7 +115,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(6,182,212,0.2)] animate-pulse">
                             <Flame className="w-8 h-8 text-cyan-400 drop-shadow-[0_0_15px_rgba(6,182,212,0.6)]" strokeWidth={1.5} />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-2xl">
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-4 drop-shadow-2xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
                             Street Mode
                         </h1>
                         <p className="text-lg md:text-2xl text-cyan-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(6,182,212,0.3)]">Action Oriented • Raw • Direct</p>
@@ -161,7 +161,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(168,85,247,0.2)]">
                             <Atom className="w-8 h-8 text-purple-400 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-2xl">
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-4 drop-shadow-2xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
                             Stellar Mode
                         </h1>
                         <p className="text-lg md:text-2xl text-purple-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]">Deep Learning • Academic • Structured</p>
@@ -206,7 +206,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                     >
                         <div className="text-center mb-10">
                             <span className="text-[10px] tracking-[0.4em] uppercase text-cyan-400 mb-2 block opacity-80 font-semibold">The Process</span>
-                            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white drop-shadow-lg">Your Learning Journey</h2>
+                            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Your Learning Journey</h2>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-6xl">
@@ -254,7 +254,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                             {/* Left Side */}
                             <div className="text-left">
                                 <span className={`text-[10px] tracking-[0.4em] uppercase mb-4 block font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>Live Preview</span>
-                                <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white mb-6 leading-tight drop-shadow-xl">See Pustakam<br />in Action</h2>
+                                <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-6 leading-tight drop-shadow-xl" style={{ fontFamily: "'Rubik', sans-serif" }}>See Pustakam<br />in Action</h2>
                                 <p className="text-white/40 text-sm mb-8 max-w-md leading-relaxed">Experience the raw power of AI-generated books. Switch between modes to see how the engine adapts its output to your needs.</p>
 
                                 <div className="bg-[#050505]/80 border border-white/10 rounded-2xl p-6 mb-8 backdrop-blur-md shadow-2xl">
@@ -348,7 +348,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                     >
                         <div className="text-center mb-12">
                             <span className="text-[10px] tracking-[0.4em] uppercase text-emerald-400 mb-2 block opacity-80 font-semibold">Capabilities</span>
-                            <h2 className="text-3xl md:text-5xl font-medium tracking-tight text-white drop-shadow-lg">Why Pustakam?</h2>
+                            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Why Pustakam?</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
@@ -386,10 +386,10 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         className="flex flex-col items-center justify-center min-h-full text-center px-4 py-10"
                     >
                         <div className="relative z-10 max-w-4xl mb-10">
-                            <h1 className="text-4xl md:text-7xl lg:text-9xl font-bold tracking-tight leading-[1] text-white mb-4 drop-shadow-2xl">
+                            <h1 className="text-4xl md:text-7xl lg:text-9xl font-black tracking-tighter leading-[0.9] text-white mb-4 drop-shadow-2xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
                                 Your Infinite
                             </h1>
-                            <span className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white/40 block drop-shadow-lg">Knowledge Engine</span>
+                            <span className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white/40 block drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Knowledge Engine</span>
                         </div>
 
                         <p className="text-white/40 text-sm md:text-lg max-w-2xl leading-relaxed mb-12 font-light">
