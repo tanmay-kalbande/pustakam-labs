@@ -64,21 +64,9 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
     };
 
     const tabVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                duration: 0.35,
-                ease: [0.25, 0.46, 0.45, 0.94] // Smooth cubic-bezier
-            }
-        },
-        exit: {
-            opacity: 0,
-            transition: {
-                duration: 0.2,
-                ease: [0.55, 0.055, 0.675, 0.19] // Quick ease-out
-            }
-        }
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+        exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }
     };
 
     const handleTabChange = (tab: any) => {
@@ -451,7 +439,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                 </button>
 
                 {/* Desktop Navigation Tabs */}
-                <nav className="pointer-events-auto hidden md:flex items-center p-1.5 bg-white/[0.03] rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[90vw] scrollbar-hide shadow-lg relative">
+                <nav className="pointer-events-auto hidden md:flex items-center p-1.5 bg-white/[0.03] rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[90vw] scrollbar-hide shadow-lg relative" style={{ fontFamily: "'Rubik', sans-serif" }}>
                     {[
                         { id: 'home', label: 'Home' },
                         { id: 'process', label: 'How it Works' },
@@ -463,14 +451,14 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <button
                             key={tab.id}
                             onClick={() => handleTabChange(tab.id as any)}
-                            className={`relative px-4 md:px-5 py-2 rounded-full text-[10px] md:text-[11px] font-medium tracking-widest uppercase transition-colors duration-200 whitespace-nowrap z-10 ${activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/70'
+                            className={`relative px-4 md:px-5 py-2.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-wider uppercase transition-all duration-300 whitespace-nowrap z-10 ${activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/70'
                                 }`}
                         >
                             {activeTab === tab.id && (
                                 <motion.div
                                     layoutId="activeTab"
-                                    className="absolute inset-0 bg-white/10 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/5"
-                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                    className="absolute inset-0 bg-white/10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.15)] border border-white/10"
+                                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
                                 />
                             )}
                             <span className="relative z-10">{tab.label}</span>
@@ -494,111 +482,62 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="fixed inset-0 z-[100] bg-black/98 backdrop-blur-2xl flex flex-col pointer-events-auto overflow-hidden"
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                        className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col p-8 pointer-events-auto"
+                        style={{ fontFamily: "'Rubik', sans-serif" }}
                     >
-                        {/* Ambient glow */}
-                        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-gradient-radial from-white/[0.03] to-transparent rounded-full blur-3xl pointer-events-none" />
-
-                        {/* Header */}
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1, duration: 0.3 }}
-                            className="flex items-center justify-between p-6 border-b border-white/5"
-                        >
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                                    <img src="/white-logo.png" alt="Logo" className="w-5 h-5" />
-                                </div>
-                                <span className="font-medium text-white/80 text-sm tracking-wide">Navigation</span>
+                        <div className="flex items-center justify-between mb-12">
+                            <div className="flex items-center gap-2">
+                                <img src="/white-logo.png" alt="Logo" className="w-6 h-6" />
+                                <span className="font-semibold text-white text-lg">Menu</span>
                             </div>
-                            <button
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all"
-                            >
-                                <X size={18} />
+                            <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-white/50 hover:text-white transition-colors">
+                                <X size={24} />
                             </button>
-                        </motion.div>
-
-                        {/* Navigation Items - Staggered entrance */}
-                        <div className="flex-1 flex flex-col justify-center px-8 py-10">
-                            <div className="space-y-2">
-                                {[
-                                    { id: 'home', label: 'Home', color: 'white' },
-                                    { id: 'process', label: 'How it Works', color: 'amber' },
-                                    { id: 'street', label: 'Street Mode', color: 'cyan' },
-                                    { id: 'stellar', label: 'Stellar Mode', color: 'purple' },
-                                    { id: 'demo', label: 'Demo', color: 'emerald' },
-                                    { id: 'features', label: 'Use Cases', color: 'white' }
-                                ].map((tab, index) => (
-                                    <motion.button
-                                        key={tab.id}
-                                        initial={{ opacity: 0, x: -30, rotateY: -15 }}
-                                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                                        transition={{
-                                            delay: 0.15 + index * 0.06,
-                                            duration: 0.4,
-                                            ease: [0.25, 0.46, 0.45, 0.94]
-                                        }}
-                                        onClick={() => handleTabChange(tab.id as any)}
-                                        className={`w-full text-left px-5 py-4 rounded-2xl transition-all duration-300 group relative overflow-hidden ${activeTab === tab.id
-                                                ? 'bg-white/[0.08] border border-white/10'
-                                                : 'hover:bg-white/[0.04]'
-                                            }`}
-                                    >
-                                        {/* Active indicator glow */}
-                                        {activeTab === tab.id && (
-                                            <motion.div
-                                                layoutId="mobileActiveTab"
-                                                className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-gradient-to-b from-white/80 to-white/40"
-                                                transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-                                            />
-                                        )}
-                                        <div className="flex items-center gap-4">
-                                            <span className={`text-[10px] font-mono ${activeTab === tab.id ? 'text-white/60' : 'text-white/20'}`}>
-                                                0{index + 1}
-                                            </span>
-                                            <span className={`text-lg font-medium tracking-wide transition-colors ${activeTab === tab.id
-                                                    ? 'text-white'
-                                                    : 'text-white/40 group-hover:text-white/70'
-                                                }`}>
-                                                {tab.label}
-                                            </span>
-                                        </div>
-                                        {/* Hover arrow */}
-                                        <ChevronRight className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition-all duration-300 ${activeTab === tab.id
-                                                ? 'text-white/40 opacity-100'
-                                                : 'text-white/20 opacity-0 group-hover:opacity-100 group-hover:translate-x-1'
-                                            }`} />
-                                    </motion.button>
-                                ))}
-                            </div>
                         </div>
 
-                        {/* Bottom Actions */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 0.4 }}
-                            className="p-6 border-t border-white/5 space-y-3"
-                        >
+                        <div className="flex flex-col gap-1">
+                            {[
+                                { id: 'home', label: 'Home' },
+                                { id: 'process', label: 'How it Works' },
+                                { id: 'street', label: 'Street Mode' },
+                                { id: 'stellar', label: 'Stellar Mode' },
+                                { id: 'demo', label: 'Demo' },
+                                { id: 'features', label: 'Use Cases' }
+                            ].map((tab, idx) => (
+                                <motion.button
+                                    key={tab.id}
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: idx * 0.05 }}
+                                    onClick={() => handleTabChange(tab.id as any)}
+                                    className={`relative text-left px-5 py-4 rounded-2xl text-xl font-medium tracking-wide transition-all duration-300 ${activeTab === tab.id
+                                            ? 'text-white bg-white/10 border border-white/10'
+                                            : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+                                        }`}
+                                >
+                                    {tab.label}
+                                </motion.button>
+                            ))}
+                        </div>
+
+                        <div className="mt-auto flex flex-col gap-4">
                             <button
                                 onClick={onGetStarted}
-                                className="w-full py-4 bg-white text-black rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-white/90 transition-all shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_50px_rgba(255,255,255,0.2)] active:scale-[0.98]"
+                                className="w-full py-4 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white/90 transition-all active:scale-95"
                             >
                                 Try Pustakam
                             </button>
                             <button
                                 onClick={onLogin}
-                                className="w-full py-4 bg-white/5 border border-white/10 text-white/70 rounded-2xl font-medium uppercase tracking-widest text-xs hover:bg-white/10 hover:text-white transition-all"
+                                className="w-full py-4 bg-white/5 text-white rounded-full font-medium uppercase tracking-widest text-sm hover:bg-white/10 transition-all active:scale-95 border border-white/10"
                             >
                                 Login
                             </button>
-                        </motion.div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
