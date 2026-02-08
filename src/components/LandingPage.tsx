@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Binary, Cpu, HardDriveDownload, MoveRight, X, Github, Twitter, Linkedin, Book, Flame, Atom, BookOpen, ChevronRight, Menu } from 'lucide-react';
+import { Zap, Binary, Cpu, HardDriveDownload, MoveRight, X, Github, Twitter, Linkedin, Book, Flame, Atom, BookOpen, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import NebulaBackground from './NebulaBackground';
 
@@ -63,37 +63,7 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
         localStorage.setItem('promo_dismissed', 'true');
     };
 
-    const tabVariants = {
-        hidden: {
-            opacity: 0,
-            x: 40,
-            filter: "blur(10px)",
-            scale: 0.98
-        },
-        visible: {
-            opacity: 1,
-            x: 0,
-            filter: "blur(0px)",
-            scale: 1,
-            transition: {
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-                mass: 1,
-                duration: 0.8
-            }
-        },
-        exit: {
-            opacity: 0,
-            x: -40,
-            filter: "blur(10px)",
-            scale: 0.98,
-            transition: {
-                duration: 0.4,
-                ease: "easeInOut"
-            }
-        }
-    };
+
 
     const handleTabChange = (tab: any) => {
         setActiveTab(tab);
@@ -104,166 +74,141 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
         switch (activeTab) {
             case 'street':
                 return (
-                    <motion.div
+                    <div
                         key="street"
-                        variants={tabVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-7xl mx-auto py-10"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-5xl mx-auto py-6"
                     >
-                        <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(6,182,212,0.2)] animate-pulse">
-                            <Flame className="w-8 h-8 text-cyan-400 drop-shadow-[0_0_15px_rgba(6,182,212,0.6)]" strokeWidth={1.5} />
+                        <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center mb-5 shadow-[0_0_30px_rgba(6,182,212,0.15)] animate-pulse">
+                            <Flame className="w-7 h-7 text-cyan-400 drop-shadow-[0_0_12px_rgba(6,182,212,0.5)]" strokeWidth={1.5} />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-4 drop-shadow-2xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
+                        <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-white mb-2 drop-shadow-xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
                             Street Mode
                         </h1>
-                        <p className="text-lg md:text-2xl text-cyan-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(6,182,212,0.3)]">Action Oriented • Raw • Direct</p>
+                        <p className="text-sm md:text-lg text-cyan-400 font-medium tracking-wide mb-6 drop-shadow-[0_0_10px_rgba(6,182,212,0.2)]">Action Oriented • Raw • Direct</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-left max-w-5xl w-full mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 text-left max-w-4xl w-full mb-10">
                             {[
                                 { title: 'No-BS Tone', desc: 'Cuts through the noise with raw, aggressive, and direct language.' },
                                 { title: 'Execution Focused', desc: 'Prioritizes actionable steps and "how-to" advice over theory.' },
                                 { title: 'High Energy', desc: 'Designed to motivate and push you into immediate action.' }
                             ].map((item, i) => (
-                                <motion.div
+                                <div
                                     key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 * i }}
-                                    className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/[0.07] transition-colors hover:border-cyan-500/30 group"
+                                    className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/[0.07] transition-colors hover:border-cyan-500/30 group"
                                 >
-                                    <h3 className="text-cyan-400 font-bold mb-2 uppercase tracking-wide text-xs group-hover:text-cyan-300 transition-colors">{item.title}</h3>
-                                    <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">{item.desc}</p>
-                                </motion.div>
+                                    <h3 className="text-cyan-400 font-bold mb-1.5 uppercase tracking-wide text-[10px] group-hover:text-cyan-300 transition-colors">{item.title}</h3>
+                                    <p className="text-white/60 text-[13px] leading-relaxed group-hover:text-white/80 transition-colors">{item.desc}</p>
+                                </div>
                             ))}
                         </div>
 
                         <button
                             onClick={onGetStarted}
-                            className="px-8 py-3 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 hover:border-cyan-500/40 rounded-full text-sm font-medium tracking-wide text-cyan-400 hover:text-cyan-300 transition-all group flex items-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:shadow-[0_0_30px_rgba(6,182,212,0.25)]"
+                            className="px-7 py-2.5 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 hover:border-cyan-500/40 rounded-full text-[13px] font-medium tracking-wide text-cyan-400 hover:text-cyan-300 transition-all group flex items-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.1)] hover:shadow-[0_0_30px_rgba(6,182,212,0.25)]"
                         >
                             <span>Start Street Mode</span>
-                            <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <MoveRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </button>
-                    </motion.div>
+                    </div>
                 );
             case 'stellar':
                 return (
-                    <motion.div
+                    <div
                         key="stellar"
-                        variants={tabVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-7xl mx-auto py-10"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-5xl mx-auto py-6"
                     >
-                        <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(168,85,247,0.2)]">
-                            <Atom className="w-8 h-8 text-purple-400 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
+                        <div className="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mb-5 shadow-[0_0_30px_rgba(168,85,247,0.15)]">
+                            <Atom className="w-7 h-7 text-purple-400 drop-shadow-[0_0_12px_rgba(168,85,247,0.5)] animate-[spin_10s_linear_infinite]" strokeWidth={1.5} />
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white mb-4 drop-shadow-2xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
+                        <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-white mb-2 drop-shadow-xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
                             Stellar Mode
                         </h1>
-                        <p className="text-lg md:text-2xl text-purple-400 font-medium tracking-wide mb-8 drop-shadow-[0_0_10px_rgba(168,85,247,0.3)]">Deep Learning • Academic • Structured</p>
+                        <p className="text-sm md:text-lg text-purple-400 font-medium tracking-wide mb-6 drop-shadow-[0_0_10px_rgba(168,85,247,0.2)]">Deep Learning • Academic • Structured</p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-left max-w-5xl w-full mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 text-left max-w-4xl w-full mb-10">
                             {[
                                 { title: 'Academic Structure', desc: 'Organizes content into modules, chapters, and quizzes like a textbook.' },
                                 { title: 'Concept Mastery', desc: 'Focuses on building deep mental models and theoretical understanding.' },
                                 { title: 'Comprehensive', desc: 'Covers topics thoroughly with examples, history, and context.' }
                             ].map((item, i) => (
-                                <motion.div
+                                <div
                                     key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 * i }}
-                                    className="bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/[0.07] transition-colors hover:border-purple-500/30 group"
+                                    className="bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/[0.07] transition-colors hover:border-purple-500/30 group"
                                 >
-                                    <h3 className="text-purple-400 font-bold mb-2 uppercase tracking-wide text-xs group-hover:text-purple-300 transition-colors">{item.title}</h3>
-                                    <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/80 transition-colors">{item.desc}</p>
-                                </motion.div>
+                                    <h3 className="text-purple-400 font-bold mb-1.5 uppercase tracking-wide text-[10px] group-hover:text-purple-300 transition-colors">{item.title}</h3>
+                                    <p className="text-white/60 text-[13px] leading-relaxed group-hover:text-white/80 transition-colors">{item.desc}</p>
+                                </div>
                             ))}
                         </div>
 
                         <button
                             onClick={onGetStarted}
-                            className="px-8 py-3 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 hover:border-purple-500/40 rounded-full text-sm font-medium tracking-wide text-purple-400 hover:text-purple-300 transition-all group flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.1)] hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]"
+                            className="px-7 py-2.5 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20 hover:border-purple-500/40 rounded-full text-[13px] font-medium tracking-wide text-purple-400 hover:text-purple-300 transition-all group flex items-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.1)] hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]"
                         >
                             <span>Start Stellar Mode</span>
-                            <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <MoveRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </button>
-                    </motion.div>
+                    </div>
                 );
             case 'process':
                 return (
-                    <motion.div
+                    <div
                         key="process"
-                        variants={tabVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-7xl mx-auto py-10"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 w-full max-w-6xl mx-auto py-6"
                     >
-                        <div className="text-center mb-10">
-                            <span className="text-[10px] tracking-[0.4em] uppercase text-cyan-400 mb-2 block opacity-80 font-semibold">The Process</span>
-                            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Your Learning Journey</h2>
+                        <div className="text-center mb-8">
+                            <span className="text-[9px] tracking-[0.4em] uppercase text-cyan-400 mb-2 block opacity-80 font-semibold">The Process</span>
+                            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-white drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Your Learning Journey</h2>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full max-w-6xl">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 w-full max-w-5xl">
                             {[
                                 { step: '01', title: 'Initialize Vision', desc: 'Seed your core concept into the knowledge engine', icon: Zap, color: 'cyan' },
                                 { step: '02', title: 'Neural Mapping', desc: 'Architect the tone, depth and learning logic', icon: Binary, color: 'purple' },
                                 { step: '03', title: 'Engine Synthesis', desc: 'AI orchestration begins building your knowledge base', icon: Cpu, color: 'amber' },
                                 { step: '04', title: 'Ethereal Export', desc: 'Extract your high-fidelity instant PDF book', icon: HardDriveDownload, color: 'emerald' }
                             ].map((item, idx) => (
-                                <motion.div
+                                <div
                                     key={idx}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 * idx }}
-                                    className="bg-[#050505]/60 border border-white/10 rounded-[24px] px-6 py-8 md:py-10 flex flex-col items-center justify-center text-center hover:border-white/20 transition-all duration-500 group relative overflow-hidden hover:bg-white/[0.03] backdrop-blur-sm"
+                                    className="bg-[#050505]/60 border border-white/10 rounded-[24px] px-5 py-7 flex flex-col items-center justify-center text-center hover:border-white/20 transition-all duration-500 group relative overflow-hidden hover:bg-white/[0.03] backdrop-blur-sm"
                                 >
-                                    <div className={`absolute top-4 right-4 text-[10px] font-mono text-${item.color}-400/40 font-bold`}>{item.step}</div>
-                                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-${item.color}-500/[0.08] border border-${item.color}-500/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.2)]`}>
-                                        <item.icon className={`w-6 h-6 md:w-7 md:h-7 text-${item.color}-400/90`} strokeWidth={1.5} />
+                                    <div className={`absolute top-3 right-3 text-[9px] font-mono text-${item.color}-400/40 font-bold`}>{item.step}</div>
+                                    <div className={`w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-${item.color}-500/[0.08] border border-${item.color}-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.2)]`}>
+                                        <item.icon className={`w-5 h-5 md:w-6 md:h-6 text-${item.color}-400/90`} strokeWidth={1.5} />
                                     </div>
-                                    <h3 className="text-white font-medium text-sm mb-3 tracking-widest uppercase opacity-90">{item.title}</h3>
-                                    <p className="text-white/40 text-[11px] leading-relaxed px-2">{item.desc}</p>
-                                </motion.div>
+                                    <h3 className="text-white font-medium text-xs mb-2.5 tracking-widest uppercase opacity-90">{item.title}</h3>
+                                    <p className="text-white/40 text-[10px] leading-relaxed px-2">{item.desc}</p>
+                                </div>
                             ))}
                         </div>
 
-                        <div className="mt-14 flex items-center justify-center gap-4 opacity-40">
-                            <div className="h-px w-12 md:w-16 bg-gradient-to-r from-transparent to-white/30" />
+                        <div className="mt-10 flex items-center justify-center gap-4 opacity-40">
+                            <div className="h-px w-10 md:w-14 bg-gradient-to-r from-transparent to-white/30" />
                             <span className="text-[8px] md:text-[9px] uppercase tracking-[0.3em] font-light text-white/60 text-center">Secure Neural Channels • TLS 1.3</span>
-                            <div className="h-px w-12 md:w-16 bg-gradient-to-l from-transparent to-white/30" />
+                            <div className="h-px w-10 md:w-14 bg-gradient-to-l from-transparent to-white/30" />
                         </div>
-                    </motion.div>
+                    </div>
                 );
             case 'demo':
                 return (
-                    <motion.div
+                    <div
                         key="demo"
-                        variants={tabVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="flex flex-col items-center justify-center min-h-full px-4 w-full max-w-7xl mx-auto py-10"
+                        className="flex flex-col items-center justify-center min-h-full px-4 w-full max-w-5xl mx-auto py-6"
                     >
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center w-full">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center w-full">
                             {/* Left Side */}
                             <div className="text-left">
-                                <span className={`text-[10px] tracking-[0.4em] uppercase mb-4 block font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>Live Preview</span>
-                                <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-6 leading-tight drop-shadow-xl" style={{ fontFamily: "'Rubik', sans-serif" }}>See Pustakam<br />in Action</h2>
-                                <p className="text-white/40 text-sm mb-8 max-w-md leading-relaxed">Experience the raw power of AI-generated books. Switch between modes to see how the engine adapts its output to your needs.</p>
+                                <span className={`text-[9px] tracking-[0.4em] uppercase mb-3 block font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>Live Preview</span>
+                                <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-white mb-3 leading-tight drop-shadow-xl" style={{ fontFamily: "'Rubik', sans-serif" }}>See Pustakam<br />in Action</h2>
+                                <p className="text-white/40 text-[13px] mb-6 max-w-md leading-relaxed">Experience the raw power of AI-generated books. Switch between modes to see how the engine adapts its output to your needs.</p>
 
-                                <div className="bg-[#050505]/80 border border-white/10 rounded-2xl p-6 mb-8 backdrop-blur-md shadow-2xl">
-                                    <div className="flex gap-2 mb-6">
+                                <div className="bg-[#050505]/80 border border-white/10 rounded-2xl p-5 mb-6 backdrop-blur-md shadow-2xl">
+                                    <div className="flex gap-2 mb-4">
                                         {DEMO_BOOKS.map((book, i) => (
                                             <button
                                                 key={i}
                                                 onClick={() => setActiveDemoIdx(i)}
-                                                className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center gap-2 border ${i === activeDemoIdx
+                                                className={`px-3.5 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center gap-2 border ${i === activeDemoIdx
                                                     ? 'bg-white/10 border-white/20 text-white shadow-inner'
                                                     : 'bg-transparent border-transparent text-white/30 hover:text-white/60'
                                                     }`}
@@ -274,16 +219,16 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                         ))}
                                     </div>
 
-                                    <div className="space-y-3 mb-5">
-                                        <div className="text-[10px] text-white/30 font-mono uppercase tracking-wider">Input Prompt</div>
-                                        <div className="text-white/90 text-sm font-medium border-l-2 border-white/20 pl-3 py-1 italic text-white/70">
+                                    <div className="space-y-2 mb-4">
+                                        <div className="text-[9px] text-white/30 font-mono uppercase tracking-wider">Input Prompt</div>
+                                        <div className="text-white/90 text-[13px] font-medium border-l-2 border-white/20 pl-3 py-0.5 italic text-white/70">
                                             "{activeBook.input}"
                                         </div>
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <div className="text-[10px] text-white/30 font-mono uppercase tracking-wider">Generated Title</div>
-                                        <div className={`text-lg font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>
+                                    <div className="space-y-1">
+                                        <div className="text-[9px] text-white/30 font-mono uppercase tracking-wider">Generated Title</div>
+                                        <div className={`text-base font-bold transition-colors duration-500 ${activeDemoIdx === 0 ? 'text-cyan-400' : 'text-purple-400'}`}>
                                             {activeBook.title}
                                         </div>
                                     </div>
@@ -291,32 +236,28 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                             </div>
 
                             {/* Right Side - Book Card */}
-                            <motion.div
+                            <div
                                 key={activeDemoIdx}
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5 }}
-                                className="relative group perspective-1000"
+                                className="relative group"
                             >
-                                <div className="relative bg-[#050505]/60 border border-white/10 rounded-3xl p-6 md:p-8 transition-all duration-500 hover:border-white/20 transform hover:scale-[1.02] shadow-2xl backdrop-blur-sm">
-                                    <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 text-center md:text-left">
-                                        <div className="relative flex-shrink-0 w-28 h-36 bg-[#0a0a0f] rounded-lg border border-white/10 overflow-hidden shadow-2xl md:skew-x-1 group-hover:skew-x-0 transition-transform duration-500 origin-bottom-left">
+                                <div className="relative bg-[#050505]/60 border border-white/10 rounded-2xl p-5 md:p-6 transition-all duration-500 hover:border-white/20 shadow-2xl backdrop-blur-sm">
+                                    <div className="flex flex-col md:flex-row items-center md:items-start gap-5 mb-6 text-center md:text-left">
+                                        <div className="relative flex-shrink-0 w-24 h-32 bg-[#0a0a0f] rounded-lg border border-white/10 overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
                                             <div className={`absolute inset-0 bg-gradient-to-br ${activeBook.gradient} opacity-90`} />
                                             <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center">
-                                                <div className="text-[8px] text-white/90 font-bold mb-1 tracking-tight leading-tight px-1">{activeBook.shortTitle}</div>
-                                                <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center backdrop-blur-md">
-                                                    {activeDemoIdx === 0 ? <Flame className="w-3 h-3 text-white" /> : <Atom className="w-3 h-3 text-white" />}
+                                                <div className="text-[7px] text-white/90 font-bold mb-1 tracking-tight leading-tight px-1">{activeBook.shortTitle}</div>
+                                                <div className="w-5 h-5 rounded bg-white/20 flex items-center justify-center backdrop-blur-md">
+                                                    {activeDemoIdx === 0 ? <Flame className="w-2.5 h-2.5 text-white" /> : <Atom className="w-2.5 h-2.5 text-white" />}
                                                 </div>
                                             </div>
-                                            {/* Spine effect */}
-                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-white/20" />
+                                            <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-white/20" />
                                         </div>
                                         <div>
-                                            <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
-                                                <span className="px-2.5 py-1 rounded-md text-[9px] bg-white/10 text-white/70 uppercase tracking-wider border border-white/5 font-semibold">PDF Ready</span>
-                                                <span className="text-white/40 text-[10px] font-mono">{activeBook.words} Words</span>
+                                            <div className="flex items-center justify-center md:justify-start gap-2.5 mb-2">
+                                                <span className="px-2 py-0.5 rounded text-[8px] bg-white/10 text-white/70 uppercase tracking-wider border border-white/5 font-semibold">PDF Ready</span>
+                                                <span className="text-white/40 text-[9px] font-mono">{activeBook.words} Words</span>
                                             </div>
-                                            <p className="text-white/50 text-xs leading-relaxed max-w-xs mx-auto md:mx-0">{activeBook.desc}</p>
+                                            <p className="text-white/50 text-[11px] leading-relaxed max-w-[240px] mx-auto md:mx-0">{activeBook.desc}</p>
                                         </div>
                                     </div>
 
@@ -324,95 +265,77 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                         href={activeBook.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`flex items-center justify-center gap-3 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all shadow-lg ${activeDemoIdx === 0
+                                        className={`flex items-center justify-center gap-2.5 w-full py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all shadow-lg ${activeDemoIdx === 0
                                             ? 'bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:shadow-cyan-500/10'
                                             : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 hover:shadow-purple-500/10'}`}
                                     >
-                                        <HardDriveDownload className="w-3.5 h-3.5" />
+                                        <HardDriveDownload className="w-3 h-3" />
                                         <span>Download Sample PDF</span>
                                     </a>
                                 </div>
-                            </motion.div>
+                            </div>
                         </div>
-                    </motion.div>
+                    </div>
                 );
             case 'features':
                 return (
-                    <motion.div
+                    <div
                         key="features"
-                        variants={tabVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="flex flex-col items-center justify-center min-h-full px-4 w-full max-w-7xl mx-auto py-10"
+                        className="flex flex-col items-center justify-center min-h-full px-4 w-full max-w-5xl mx-auto py-6"
                     >
-                        <div className="text-center mb-12">
-                            <span className="text-[10px] tracking-[0.4em] uppercase text-emerald-400 mb-2 block opacity-80 font-semibold">Capabilities</span>
-                            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Why Pustakam?</h2>
+                        <div className="text-center mb-10">
+                            <span className="text-[9px] tracking-[0.4em] uppercase text-emerald-400 mb-2 block opacity-80 font-semibold">Capabilities</span>
+                            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-white drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Why Pustakam?</h2>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-5xl">
                             {[
                                 { title: 'Instant Generation', desc: 'Get complete learning guides in seconds. Just describe what you want.', icon: Zap, color: 'cyan' },
                                 { title: 'Structured Content', desc: 'Every book includes chapters, modules, quizzes, and progress tracking.', icon: Book, color: 'purple' },
                                 { title: 'Learn Anything', desc: 'From programming to philosophy — if you can describe it, Pustakam can teach it.', icon: BookOpen, color: 'emerald' }
                             ].map((item, i) => (
-                                <motion.div
+                                <div
                                     key={i}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 0.1 * i }}
-                                    className="group relative p-8 rounded-[28px] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 hover:bg-white/[0.04] text-center md:text-left hover:shadow-2xl hover:shadow-black/50"
+                                    className="group relative p-6 rounded-[24px] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 hover:bg-white/[0.04] text-center md:text-left hover:shadow-xl hover:shadow-black/40"
                                 >
-                                    <div className={`w-14 h-14 rounded-2xl bg-${item.color}-500/10 flex items-center justify-center mb-6 border border-${item.color}-500/15 mx-auto md:mx-0 group-hover:scale-110 transition-transform duration-500 group-hover:shadow-[0_0_20px_rgba(0,0,0,0.2)]`}>
-                                        <item.icon className={`w-7 h-7 text-${item.color}-400/90`} strokeWidth={1.5} />
+                                    <div className={`w-12 h-12 rounded-2xl bg-${item.color}-500/10 flex items-center justify-center mb-5 border border-${item.color}-500/15 mx-auto md:mx-0 group-hover:scale-110 transition-transform duration-500 group-hover:shadow-[0_0_15px_rgba(0,0,0,0.2)]`}>
+                                        <item.icon className={`w-6 h-6 text-${item.color}-400/90`} strokeWidth={1.5} />
                                     </div>
-                                    <h3 className="text-lg font-medium mb-3 text-white/90 group-hover:text-white transition-colors">{item.title}</h3>
-                                    <p className="text-white/40 font-light leading-relaxed text-sm group-hover:text-white/60 transition-colors">{item.desc}</p>
-                                </motion.div>
+                                    <h3 className="text-base font-medium mb-2.5 text-white/90 group-hover:text-white transition-colors">{item.title}</h3>
+                                    <p className="text-white/40 font-light leading-relaxed text-[13px] group-hover:text-white/60 transition-colors">{item.desc}</p>
+                                </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 );
             case 'home':
             default:
                 return (
-                    <motion.div
+                    <div
                         key="home"
-                        variants={tabVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        className="flex flex-col items-center justify-center min-h-full text-center px-4 py-10"
+                        className="flex flex-col items-center justify-center min-h-full text-center px-4 py-6"
                     >
-                        <div className="relative z-10 max-w-4xl mb-10">
-                            <h1 className="text-4xl md:text-7xl lg:text-9xl font-black tracking-tighter leading-[0.9] text-white mb-4 drop-shadow-2xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
+                        <div className="relative z-10 max-w-4xl mb-6">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter leading-[0.95] text-white mb-2 drop-shadow-2xl" style={{ fontFamily: "'Rubik', sans-serif" }}>
                                 Your Infinite
                             </h1>
-                            <span className="text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white/40 block drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Knowledge Engine</span>
+                            <span className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter text-white/40 block drop-shadow-lg" style={{ fontFamily: "'Rubik', sans-serif" }}>Knowledge Engine</span>
                         </div>
 
-                        <p className="text-white/40 text-sm md:text-lg max-w-2xl leading-relaxed mb-12 font-light">
+                        <p className="text-white/40 text-[13px] md:text-sm max-w-xl leading-relaxed mb-8 font-light">
                             Generate personalized learning guides with AI. Choose your mode, define your topic, and master any subject instantly.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto">
+                        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                             <button
                                 onClick={onGetStarted}
-                                className="w-full sm:w-auto relative z-10 px-10 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full text-sm font-medium tracking-wide text-white/90 hover:text-white transition-all group flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]"
+                                className="w-full sm:w-auto relative z-10 px-8 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full text-[13px] font-medium tracking-wide text-white/90 hover:text-white transition-all group flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_50px_rgba(255,255,255,0.1)]"
                             >
                                 <span>Start Learning Now</span>
                                 <MoveRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </button>
-                            <button
-                                onClick={() => handleTabChange('process')}
-                                className="w-full sm:w-auto px-10 py-4 text-sm font-medium tracking-wide text-white/40 hover:text-white transition-colors flex items-center justify-center gap-2 group"
-                            >
-                                How it Works
-                                <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
-                            </button>
                         </div>
-                    </motion.div>
+                    </div>
                 );
         }
     };
@@ -569,11 +492,9 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
             </AnimatePresence>
 
             {/* Main Content Area - Absolute positioning to prevent shifting */}
-            <main className="flex-1 flex flex-col relative z-10 md:pt-24 pb-20 md:pb-20 overflow-y-auto md:overflow-hidden scrollbar-hide">
-                <div className="min-h-full flex-1 flex flex-col pt-24 md:pt-0">
-                    <AnimatePresence mode="wait">
-                        {renderContent()}
-                    </AnimatePresence>
+            <main className="flex-1 flex flex-col relative z-10 md:pt-20 pb-16 md:pb-16 overflow-y-auto md:overflow-hidden scrollbar-hide">
+                <div className="min-h-full flex-1 flex flex-col pt-20 md:pt-0">
+                    {renderContent()}
 
                     {/* Fixed Footer for Desktop / Relative for Mobile */}
                     <footer className="w-full px-6 py-8 md:py-5 border-t border-white/5 bg-black md:bg-black/80 md:backdrop-blur-xl md:absolute md:bottom-0 md:left-0 md:right-0 z-50">
@@ -588,13 +509,13 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                 {/* Socials */}
                                 <div className="flex items-center gap-8 md:gap-5">
                                     <a href="https://x.com/404NotTelling" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
-                                        <Twitter size={16} md:size={14} />
+                                        <Twitter size={16} />
                                     </a>
                                     <a href="https://github.com/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
-                                        <Github size={16} md:size={14} />
+                                        <Github size={16} />
                                     </a>
                                     <a href="https://linkedin.com/in/tanmay-kalbande" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-colors hover:scale-110">
-                                        <Linkedin size={16} md:size={14} />
+                                        <Linkedin size={16} />
                                     </a>
                                 </div>
 
