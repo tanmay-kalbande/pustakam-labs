@@ -64,9 +64,35 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
     };
 
     const tabVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-        exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } }
+        hidden: {
+            opacity: 0,
+            rotateY: 45,
+            x: 50,
+            perspective: 2000
+        },
+        visible: {
+            opacity: 1,
+            rotateY: 0,
+            x: 0,
+            perspective: 2000,
+            transition: {
+                type: "spring",
+                stiffness: 90,
+                damping: 20,
+                mass: 1,
+                duration: 0.8
+            }
+        },
+        exit: {
+            opacity: 0,
+            rotateY: -45,
+            x: -50,
+            perspective: 2000,
+            transition: {
+                duration: 0.5,
+                ease: "circIn"
+            }
+        }
     };
 
     const handleTabChange = (tab: any) => {
@@ -430,16 +456,20 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                     <span className="text-white/90 font-semibold text-sm tracking-tight group-hover:text-white transition-colors">Pustakam<span className="text-white/40 group-hover:text-white/60 transition-colors">AI</span></span>
                 </div>
 
-                {/* Mobile Menu Trigger */}
-                <button
-                    onClick={() => setMobileMenuOpen(true)}
-                    className="pointer-events-auto md:hidden p-2 text-white/60 hover:text-white"
-                >
-                    <Menu size={24} />
-                </button>
+                <div className="md:hidden flex items-center gap-3">
+                    <button onClick={() => setMobileMenuOpen(true)} className="pointer-events-auto p-2 text-white/60 hover:text-white bg-white/5 rounded-full border border-white/10 backdrop-blur-md">
+                        <Menu size={20} />
+                    </button>
+                    <button
+                        onClick={onGetStarted}
+                        className="pointer-events-auto bg-white text-black px-4 py-2 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-white/90 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                    >
+                        Try
+                    </button>
+                </div>
 
-                {/* Desktop Navigation Tabs */}
-                <nav className="pointer-events-auto hidden md:flex items-center p-1.5 bg-white/[0.03] rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[90vw] scrollbar-hide shadow-lg relative" style={{ fontFamily: "'Rubik', sans-serif" }}>
+                {/* Navigation Tabs - Now visible and scrollable on mobile */}
+                <nav className="pointer-events-auto flex items-center p-1 bg-white/[0.03] rounded-full border border-white/5 backdrop-blur-md overflow-x-auto max-w-[calc(100vw-140px)] md:max-w-none scrollbar-hide shadow-lg relative mx-auto">
                     {[
                         { id: 'home', label: 'Home' },
                         { id: 'process', label: 'How it Works' },
@@ -451,14 +481,14 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <button
                             key={tab.id}
                             onClick={() => handleTabChange(tab.id as any)}
-                            className={`relative px-4 md:px-5 py-2.5 rounded-full text-[10px] md:text-[11px] font-medium tracking-wider uppercase transition-all duration-300 whitespace-nowrap z-10 ${activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/70'
+                            className={`relative px-4 md:px-5 py-2 rounded-full text-[10px] md:text-[11px] font-medium tracking-widest uppercase transition-colors duration-200 whitespace-nowrap z-10 ${activeTab === tab.id ? 'text-white' : 'text-white/40 hover:text-white/70'
                                 }`}
                         >
                             {activeTab === tab.id && (
                                 <motion.div
                                     layoutId="activeTab"
-                                    className="absolute inset-0 bg-white/10 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.15)] border border-white/10"
-                                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                                    className="absolute inset-0 bg-white/10 rounded-full shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/5"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                 />
                             )}
                             <span className="relative z-10">{tab.label}</span>
@@ -487,19 +517,18 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         exit={{ opacity: 0, x: '100%' }}
                         transition={{ type: "spring", bounce: 0, duration: 0.4 }}
                         className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col p-8 pointer-events-auto"
-                        style={{ fontFamily: "'Rubik', sans-serif" }}
                     >
-                        <div className="flex items-center justify-between mb-12">
+                        <div className="flex items-center justify-between mb-10">
                             <div className="flex items-center gap-2">
                                 <img src="/white-logo.png" alt="Logo" className="w-6 h-6" />
-                                <span className="font-semibold text-white text-lg">Menu</span>
+                                <span className="font-semibold text-white">Menu</span>
                             </div>
-                            <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-white/50 hover:text-white transition-colors">
+                            <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-white/50 hover:text-white">
                                 <X size={24} />
                             </button>
                         </div>
 
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-6">
                             {[
                                 { id: 'home', label: 'Home' },
                                 { id: 'process', label: 'How it Works' },
@@ -512,12 +541,9 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                                     key={tab.id}
                                     initial={{ opacity: 0, x: 20 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: idx * 0.05 }}
+                                    transition={{ delay: 0.1 * idx }}
                                     onClick={() => handleTabChange(tab.id as any)}
-                                    className={`relative text-left px-5 py-4 rounded-2xl text-xl font-medium tracking-wide transition-all duration-300 ${activeTab === tab.id
-                                            ? 'text-white bg-white/10 border border-white/10'
-                                            : 'text-white/40 hover:text-white/70 hover:bg-white/5'
-                                        }`}
+                                    className={`text-left text-2xl font-light tracking-wide ${activeTab === tab.id ? 'text-white font-medium' : 'text-white/40'}`}
                                 >
                                     {tab.label}
                                 </motion.button>
@@ -527,13 +553,13 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                         <div className="mt-auto flex flex-col gap-4">
                             <button
                                 onClick={onGetStarted}
-                                className="w-full py-4 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:bg-white/90 transition-all active:scale-95"
+                                className="w-full py-4 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm"
                             >
                                 Try Pustakam
                             </button>
                             <button
                                 onClick={onLogin}
-                                className="w-full py-4 bg-white/5 text-white rounded-full font-medium uppercase tracking-widest text-sm hover:bg-white/10 transition-all active:scale-95 border border-white/10"
+                                className="w-full py-4 bg-white/5 text-white rounded-full font-medium uppercase tracking-widest text-sm"
                             >
                                 Login
                             </button>
@@ -542,9 +568,9 @@ const LandingPage = ({ onLogin, onGetStarted, onShowAbout, onShowTerms, onShowPr
                 )}
             </AnimatePresence>
 
-            {/* Main Content Area - Scrollable on Mobile, Fixed on Desktop */}
-            <main className="flex-1 flex flex-col relative z-10 md:pt-24 md:pb-20 overflow-y-auto md:overflow-hidden scrollbar-hide">
-                <div className="min-h-screen md:h-full flex flex-col">
+            {/* Main Content Area - Absolute positioning to prevent shifting */}
+            <main className="flex-1 flex flex-col relative z-10 md:pt-24 pb-20 md:pb-20 overflow-y-auto md:overflow-hidden scrollbar-hide">
+                <div className="min-h-full flex-1 flex flex-col pt-24 md:pt-0">
                     <AnimatePresence mode="wait">
                         {renderContent()}
                     </AnimatePresence>
